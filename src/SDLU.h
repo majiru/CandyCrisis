@@ -27,8 +27,8 @@
 #define SYSTEM_CURSOR_ARROW     1
 #define SYSTEM_CURSOR_HAND      2
 
-void         SDLU_Init();
-void         SDLU_CreateRendererTexture();
+void         SDLU_Init(void);
+void         SDLU_CreateRendererTexture(void);
 SDL_Rect*    SDLU_MRectToSDLRect( const MRect* in, SDL_Rect* out );
 MRect*       SDLU_SDLRectToMRect( const SDL_Rect* in, MRect* out );
 int          SDLU_BlitSurface( SDL_Surface* src, SDL_Rect* srcrect, SDL_Surface* dst, SDL_Rect* dstrect );
@@ -38,16 +38,16 @@ SDL_Surface* SDLU_InitSurface( SDL_Rect* rect, int depth );
 void         SDLU_BlitFrontSurface( SDL_Surface* source, SDL_Rect* sourceSDLRect, SDL_Rect* destSDLRect );
 void         SDLU_SetBrightness( float b );
 void         SDLU_AcquireSurface( SDL_Surface* surface );
-SDL_Surface* SDLU_GetCurrentSurface();
+SDL_Surface* SDLU_GetCurrentSurface(void);
 void         SDLU_ReleaseSurface( SDL_Surface* surface );
 void         SDLU_GetMouse( MPoint* pt );
-int          SDLU_Button();
-void         SDLU_Yield();
-void         SDLU_PumpEvents();
-void         SDLU_StartWatchingTyping();
-void         SDLU_StopWatchingTyping();
+int          SDLU_Button(void);
+void         SDLU_Yield(void);
+void         SDLU_PumpEvents(void);
+void         SDLU_StartWatchingTyping(void);
+void         SDLU_StopWatchingTyping(void);
 MBoolean     SDLU_CheckASCIITyping(char* ascii);
 MBoolean     SDLU_CheckSDLTyping(SDL_Keycode* sdlKey);
-MBoolean     SDLU_IsForeground();
-void         SDLU_Present();
+MBoolean     SDLU_IsForeground(void);
+void         SDLU_Present(void);
 void         SDLU_SetSystemCursor(int which);

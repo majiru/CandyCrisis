@@ -2,7 +2,7 @@
 
 #include "MTypes.h"
 
-MTicks MTickCount();
+MTicks MTickCount( void );
 void InitGameTickCount( void );
 void FreezeGameTickCount( void );
 void UnfreezeGameTickCount( void );

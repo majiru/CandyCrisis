@@ -10,8 +10,8 @@
 #define kBlastHeight 72
 #define kBlastFrames 14
 
-void GetBlobGraphics();
-void InitPlayerWorlds();
+void GetBlobGraphics(void);
+void InitPlayerWorlds(void);
 
 void         DrawPICTInSurface( SDL_Surface* surface, int pictID );
 SDL_Surface* LoadPICTAsSurface( int pictID, int depth );

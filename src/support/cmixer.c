@@ -61,6 +61,11 @@ enum
 	PCMFORMAT_2CH_LE16	= 0x22,
 	PCMFORMAT_1CH_BE16	= PCMFORMAT_1CH_LE16 | 0x80,
 	PCMFORMAT_2CH_BE16	= PCMFORMAT_2CH_LE16 | 0x80,
+
+	VOIX = 0x1,
+	DEAD = 0x2,
+	MODS = 0x3,
+	WAVS = 0x4,
 };
 
 struct CMWavStream
@@ -417,7 +422,7 @@ static void Mixer_Process(struct Mixer* mixer, int16_t* dst, int len)
 static inline CMVoice* CMVoice_Check(void* ptr)
 {
 	CMVoice* voice = (CMVoice*) ptr;
-	CM_ASSERT(voice->cookie == 'VOIX', "VOIX cookie not found");
+	CM_ASSERT(voice->cookie == VOIX, "VOIX cookie not found");
 	return voice;
 }
 
@@ -425,7 +430,7 @@ static CMVoice* CMVoice_New(int sampleRate, int sampleCount)
 {
 	CMVoice* voice = SDL_calloc(1, sizeof(CMVoice));
 	
-	voice->cookie = 'VOIX';
+	voice->cookie = VOIX;
 	voice->sampleRate = 0;
 	voice->sampleCount = 0;
 	voice->end = 0;
@@ -463,7 +468,7 @@ void CMVoice_Free(CMVoice* voice)
 	if (voice->callbacks.free)
 		voice->callbacks.free(voice);
 
-	voice->cookie = 'DEAD';
+	voice->cookie = DEAD;
 	SDL_free(voice);
 }
 
@@ -708,8 +713,8 @@ void CMVoice_Stop(CMVoice* voice)
 
 static inline CMWavStream* CMWavStream_Check(CMVoice* voice)
 {
-	CM_ASSERT(voice->cookie == 'VOIX', "VOIX cookie not found");
-	CM_ASSERT(voice->wav.cookie == 'WAVS', "WAVS cookie not found");
+	CM_ASSERT(voice->cookie == VOIX, "VOIX cookie not found");
+	CM_ASSERT(voice->wav.cookie == WAVS, "WAVS cookie not found");
 	return &voice->wav;
 }
 
@@ -717,7 +722,7 @@ static CMWavStream* InstallWavStream(CMVoice* voice)
 {
 	CMWavStream* wav = &voice->wav;
 
-	wav->cookie = 'WAVS';
+	wav->cookie = WAVS;
 	wav->pcmformat = PCMFORMAT_NULL;
 	wav->idx = 0;
 
@@ -745,7 +750,7 @@ static void FreeWav(CMVoice* voice)
 	wav->data = NULL;
 	wav->dataLength = 0;
 	wav->ownData = false;
-	wav->cookie = 'DEAD';
+	wav->cookie = DEAD;
 }
 
 static void RewindWav(CMVoice* voice)
@@ -916,8 +921,8 @@ CMVoice* CMVoice_LoadWAV(const char* path)
 
 static inline CMModStream* CMModStream_Check(CMVoice* voice)
 {
-	CM_ASSERT(voice->cookie == 'VOIX', "VOIX cookie not found");
-	CM_ASSERT(voice->mod.cookie == 'MODS', "MODS cookie not found");
+	CM_ASSERT(voice->cookie == VOIX, "VOIX cookie not found");
+	CM_ASSERT(voice->mod.cookie == MODS, "MODS cookie not found");
 	return &voice->mod;
 }
 
@@ -934,7 +939,7 @@ CMVoice* CMVoice_LoadMOD(const char* path)
 	voice->callbacks.fillBuffer = StreamMod;
 	voice->callbacks.free = FreeMod;
 
-	voice->mod.cookie = 'MODS';
+	voice->mod.cookie = MODS;
 	voice->mod.replayBuffer = SDL_calloc(1, 2048 * 8 * sizeof(voice->mod.replayBuffer[0]));
 	voice->mod.replayBufferOffset = 0;
 	voice->mod.replayBufferSamples = 0;
@@ -956,7 +961,7 @@ static void FreeMod(CMVoice* voice)
 	SDL_free(mod->moduleFileMemory);
 	SDL_free(mod->replayBuffer);
 
-	mod->cookie = 'DEAD';
+	mod->cookie = DEAD;
 }
 
 void CMVoice_SetMODPlaybackSpeed(CMVoice* voice, double speed)

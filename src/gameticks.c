@@ -1,6 +1,10 @@
 // gameticks.c
 
+#ifdef __plan9__
+#include <SDL2/SDL.h>
+#else
 #include <SDL_timer.h>
+#endif
 #include "gameticks.h"
 
 MTicks baseTickCount, freezeTickCount;

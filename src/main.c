@@ -573,7 +573,7 @@ void ReserveMonitor( void )
 
     SDL_SetRenderDrawColor(g_renderer, 0, 0, 0, 255);
     SDL_RenderClear(g_renderer);
-    SDL_RenderPresent(g_renderer);
+    //SDL_RenderPresent(g_renderer);
     
     g_frontSurface = SDL_CreateRGBSurface(0, 640, 480, 32,
                                           RED_MASK, GREEN_MASK, BLUE_MASK, 0);

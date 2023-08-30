@@ -22,16 +22,16 @@ void WaitForRelease( void );
 void QuickFadeIn( MRGBColor* color );
 void QuickFadeOut( MRGBColor* color );
 MBoolean FileExists( const char* name );
-void GoToBackground();
+void GoToBackground( void );
 MBoolean ControlKeyIsPressed( void );
 MBoolean OptionKeyIsPressed( void );
 MBoolean DeleteKeyIsPressed( void );
-MBoolean IsRegistered();
-void InitRegistration();
-void NoPaint();
-void NeedRefresh();
+MBoolean IsRegistered( void );
+void InitRegistration( void );
+void NoPaint( void );
+void NeedRefresh( void );
 const char* QuickResourceName( const char* prefix, int id, const char* extension );
-void WaitForRegainFocus();
+void WaitForRegainFocus( void );
 
 
 typedef struct KeyList
@@ -261,4 +261,4 @@ extern MRect playerWindowZRect, playerWindowRect[2];
 extern MBoolean playerWindowVisible[2];
 extern KeyList hitKey[2];
 extern int backgroundID;
-extern void (*DoFullRepaint)();
+extern void (*DoFullRepaint)(void);

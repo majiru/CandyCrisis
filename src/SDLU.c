@@ -168,11 +168,7 @@ void SDLU_CreateRendererTexture()
 
         int currentWidth = 0;
         int currentHeight = 0;
-#if SDL_VERSION_ATLEAST(2,26,0)
-        SDL_GetWindowSizeInPixels(g_window, &currentWidth, &currentHeight);
-#else
         SDL_GetWindowSize(g_window, &currentWidth, &currentHeight);
-#endif
 
         if (currentWidth < minWidth || currentHeight < minHeight)
         {
@@ -216,7 +212,7 @@ void SDLU_Init()
     SDL_SetPaletteColors(s_grayscalePalette, grayscaleColors, 0, arrsize(grayscaleColors));
 
     s_standardCursor = SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_ARROW);
-    s_handCursor = SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_HAND);
+    //s_handCursor = SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_HAND);
 }
 
 
@@ -282,7 +278,7 @@ void SDLU_GetPixel(	SDL_Surface* surface, int x, int y, SDL_Color* pixel )
             return;
 	}
 	
-	return SDL_GetRGB( px, surface->format, &pixel->r, &pixel->g, &pixel->b );
+	SDL_GetRGB( px, surface->format, &pixel->r, &pixel->g, &pixel->b );
 }
 
 
@@ -440,13 +436,9 @@ static MPoint SDLUi_TranslatePointFromWindowToFrontSurface(MPoint pt)
 	int windowPixelH = 1;
 
 	SDL_GetWindowSize(g_window, &windowPointW, &windowPointH);
-#if SDL_VERSION_ATLEAST(2,26,0)
-	SDL_GetWindowSizeInPixels(g_window, &windowPixelW, &windowPixelH);
-#else
 	// Backwards compat with old versions of SDL
 	windowPixelW = windowPointW;
 	windowPixelH = windowPointH;
-#endif
 
 	if (windowPointW != windowPixelW || windowPointH != windowPixelH)
 	{
