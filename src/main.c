@@ -9,7 +9,7 @@
 // • Now runs in 32-bit color.
 //
 // ETC:
-// • Codebase should once again be almost entirely platform-neutral.
+// • Codebase should once again be almost entirely platform-neutral.
 //
 
 //
