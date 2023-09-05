@@ -565,6 +565,9 @@ void ReserveMonitor( void )
     if (crispUpscaling)
         scale = (int) scale;
     scale = scale < 1 ? 1 : scale;
+#ifdef __plan9__
+    scale = 1;
+#endif
 
     SDL_CreateWindowAndRenderer(resW*scale, resH*scale, SDL_WINDOW_RESIZABLE | SDL_WINDOW_ALLOW_HIGHDPI, &g_window, &g_renderer);
 
